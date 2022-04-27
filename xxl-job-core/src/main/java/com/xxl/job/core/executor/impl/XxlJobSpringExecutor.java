@@ -88,6 +88,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
 
             Map<Method, XxlJob> annotatedMethods = null;   // referred to ：org.springframework.context.event.EventListenerMethodProcessor.processBean
             try {
+                // 获取当前bean内部所有被标注了xxlJob的方法Map
                 annotatedMethods = MethodIntrospector.selectMethods(bean.getClass(),
                         new MethodIntrospector.MetadataLookup<XxlJob>() {
                             @Override
@@ -105,7 +106,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
             for (Map.Entry<Method, XxlJob> methodXxlJobEntry : annotatedMethods.entrySet()) {
                 Method executeMethod = methodXxlJobEntry.getKey();
                 XxlJob xxlJob = methodXxlJobEntry.getValue();
-                // regist
+                // regist 执行方法的注册逻辑
                 registJobHandler(xxlJob, bean, executeMethod);
             }
         }
