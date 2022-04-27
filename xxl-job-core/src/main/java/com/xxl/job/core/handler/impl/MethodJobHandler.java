@@ -28,6 +28,7 @@ public class MethodJobHandler extends IJobHandler {
         if (paramTypes.length > 0) {
             method.invoke(target, new Object[paramTypes.length]);       // method-param can not be primitive-types
         } else {
+            // 调用target对象的 method方法
             method.invoke(target);
         }
     }
